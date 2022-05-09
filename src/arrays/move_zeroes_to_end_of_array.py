@@ -23,28 +23,27 @@ Constraints:
 
 
 def move_zeroes(nums: list):
-	if nums:
-		num_zeroes = 0
-		length_ = len(nums)
-		if length_ > 1:
-			set1 = list(set(nums))
-			if len(set1) == 1:
-				if set1[0] == 0:
-					return
-			for i in range(0, length_-1):
-				while nums[i] == 0:
-					if i >= length_ - num_zeroes:
-						break
-					for j in range(i, length_-1):
-						nums[j] = nums[j+1]
-					nums[length_-1] = 0
-					num_zeroes += 1
+	pivot = len(nums) - 1
+	while pivot >= 0 and nums[pivot] == 0:
+		pivot -= 1
+
+	if pivot == -1:
+		return
+
+	i = 0
+	while i <= pivot:
+		while nums[i] == 0 and i <= pivot:
+			for k in range(i, pivot):
+				nums[k] = nums[k+1]
+			nums[pivot] = 0
+			pivot -= 1
+		i += 1
 
 
 if __name__ == '__main__':
 	arr = [0,1,0,3,12]
-	arr = [0,0,1]
-	arr = [0,0,0]
+	# arr = [0,0,1]
+	# arr = [0,0,0]
 	move_zeroes(arr)
 	print(arr)
 
